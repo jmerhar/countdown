@@ -5,7 +5,8 @@
 			keys: [[]],
 			min: 1,
 			max: 0,
-			animate: 500
+			animate: 500,
+			callback: function(values) {}
 		};
 
 	function Plugin(element, options) {
@@ -72,15 +73,11 @@
 
 		goClick: function(e) {
 			e.preventDefault();
-			var conn = new WebSocket('ws://' + location.host +  ':8080');
-			conn.onopen = function(e) {
-				console.log("Connection established!");
-				conn.send('Hello World!');
-			};
-
-			conn.onmessage = function(e) {
-				console.log(e.data);
-			};
+			var values = [];
+			$(e.data.element).find('input').each(function() {
+				values.push($(this).val());
+			});
+			e.data.options.callback(values);
 		}
 	};
 

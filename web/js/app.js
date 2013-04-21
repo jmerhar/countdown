@@ -5,7 +5,8 @@ jQuery(document).ready(function ($) {
 			['25', '50', '75', '100']
 		],
 		min: 6,
-		max: 6
+		max: 6,
+		callback: Engine.callMethod('numbers', Results.draw)
 	});
 	$('.letters').keyboard({
 		keys: [
@@ -14,6 +15,7 @@ jQuery(document).ready(function ($) {
 			['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 		],
 		min: 5,
-		max: 9
+		max: 9,
+		callback: Engine.callMethod('letters', Results.draw)
 	});
 });
