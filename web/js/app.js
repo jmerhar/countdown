@@ -1,4 +1,7 @@
 jQuery(document).ready(function ($) {
+
+	var eng = new Engine(Results.draw);
+
 	$('.numbers').keyboard({
 		keys: [
 			['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
@@ -6,7 +9,7 @@ jQuery(document).ready(function ($) {
 		],
 		min: 6,
 		max: 6,
-		callback: Engine.callMethod('numbers', Results.draw)
+		callback: eng.callMethod('numbers')
 	});
 	$('.letters').keyboard({
 		keys: [
@@ -16,6 +19,7 @@ jQuery(document).ready(function ($) {
 		],
 		min: 5,
 		max: 9,
-		callback: Engine.callMethod('letters', Results.draw)
+		callback: eng.callMethod('letters')
 	});
+
 });
