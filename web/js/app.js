@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
 			['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
 			['25', '50', '75', '100']
 		],
+		min: 6,
 		max: 6
 	});
 	$('.letters').keyboard({
@@ -12,6 +13,7 @@ jQuery(document).ready(function ($) {
 			['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
 			['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 		],
+		min: 5,
 		max: 9
 	});
 });

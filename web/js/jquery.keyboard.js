@@ -3,6 +3,7 @@
 	var pluginName = "keyboard",
 		defaults = {
 			keys: [[]],
+			min: 1,
 			max: 0,
 			animate: 500
 		};
@@ -32,12 +33,13 @@
 				});
 			});
 			this.pickers = el.find('.button');
-			var clear = $('<a href="#" class="small alert button">Clear</a>').hide().appendTo(el.children('.keys').last()).click(this, this.clearClick);
+			var clear = $('<a href="#" class="small alert button">Clear</a>').hide()
+				.appendTo(el.children('.keys').last()).click(this, this.clearClick);
 			el.queue('pickers', function(){
 				clear.show(time, function() { el.dequeue('pickers'); });
 			}).dequeue('pickers');
 			el.append('<a href="#" class="small alert button go">GO</a><p class="picked"></p>');
-			this.go = el.find('.go').hide();
+			this.go = el.find('.go').hide().click(this, this.goClick);
 			this.pickers.click(this, this.pickerClick);
 			el.find('.picked').on('click', '.button', this, this.pickedClick);
 		},
@@ -47,10 +49,11 @@
 			if ($(this).hasClass('disabled')) return;
 			var el = e.data.element;
 			var picked = $(el).find('.picked');
-			$('<input type="button" class="small success button" value="' + $(this).text() + '">').hide().appendTo(picked).show('fast');
+			$('<input type="button" class="small success button" value="' + $(this).text() + '">').hide()
+				.appendTo(picked).show('fast');
 			var nr = picked.children().length;
 			if ((e.data.options.max > 0) && (nr >= e.data.options.max)) e.data.pickers.addClass('disabled');
-			if (nr > 0) e.data.go.show('fast');
+			if (nr >= e.data.options.min) e.data.go.show('fast');
 		},
 
 		clearClick: function(e) {
@@ -64,7 +67,20 @@
 			e.preventDefault();
 			$(this).hide('fast', function() { $(this).remove() });
 			e.data.pickers.removeClass('disabled');
-			if ($(e.data.element).find('.picked>*').length <= 0) e.data.go.hide('fast');
+			if ($(e.data.element).find('.picked>*').length <= e.data.options.min) e.data.go.hide('fast');
+		},
+
+		goClick: function(e) {
+			e.preventDefault();
+			var conn = new WebSocket('ws://' + location.host +  ':8080');
+			conn.onopen = function(e) {
+				console.log("Connection established!");
+				conn.send('Hello World!');
+			};
+
+			conn.onmessage = function(e) {
+				console.log(e.data);
+			};
 		}
 	};
 
