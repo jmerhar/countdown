@@ -1,0 +1,39 @@
+.panel p {
+	margin-bottom: 0;
+}
+
+.panel p .button {
+	margin-right: 0.4em;
+	vertical-align: top;
+}
+
+.panel p .success,
+.panel p .alert {
+	margin-bottom: 0;
+}
+
+.letters .button:not(.alert) {
+	margin-bottom: 0.4em;
+	width: 3.5em;
+}
+
+.letters .row-2 {
+	margin-left: 1.2em;
+}
+
+.letters .row-3 {
+	margin-left: 2.4em;
+}
+
+.go {
+	float: right;
+}
+
+.target {
+	float: right;
+}
+
+.target input {
+	width: auto;
+	display: inline;
+}
