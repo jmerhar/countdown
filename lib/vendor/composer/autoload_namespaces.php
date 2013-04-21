@@ -18,4 +18,5 @@ return array(
     'Guzzle\\Http' => $vendorDir . '/guzzle/http',
     'Guzzle\\Common' => $vendorDir . '/guzzle/common',
     'Evenement' => $vendorDir . '/evenement/evenement/src',
+    'Countdown' => $baseDir . '/socket',
 );
