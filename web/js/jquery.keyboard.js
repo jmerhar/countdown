@@ -74,10 +74,17 @@
 		goClick: function(e) {
 			e.preventDefault();
 			var values = [];
+			valid = true;
 			$(e.data.element).find('input').each(function() {
-				values.push($(this).val());
+				var val = $(this).val();
+				if (!val) valid = false;
+				values.push(val);
 			});
-			e.data.options.callback(values);
+			if (valid) {
+				e.data.options.callback(values);
+			} else {
+				Engine.message('Please enter a target value');
+			}
 		}
 	};
 

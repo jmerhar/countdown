@@ -45,18 +45,27 @@ Results.prototype = {
 
 	drawNumbers: function(item)
 	{
-		var text = item.index + ': ' + item.infix + ' (Δ = ' + item.delta + ')';
-		$('<p>')
-			.text(text)
-			.prepend($('<span>').addClass('right').text(item.postfix))
-			.addClass((item.delta > 0) ? 'approx' : 'exact')
-			.prependTo('#results .content');
+		var sort = (item.delta == 0) ? (item.postfix.length + item.infix.length / 100) : 0;
+		var p = $('<p>')
+			.text(item.infix + ' (Δ = ' + item.delta + ')')
+			.data('sort', sort)
+//			.prepend($('<span>').addClass('right').text(item.postfix))
+			.addClass((item.delta > 0) ? 'approx' : 'exact');
+		var content = $('#results .content');
+		var el = content.children().first();
+		while ((el.length) && (el.data('sort') < sort)) el = el.next();
+		if (el.length) {
+			el.before(p);
+		} else {
+			content.append(p);
+		}
+		if (item.delta == 0) content.find('.approx').remove();
 		$('html,body').scrollTop($('#results').offset().top);
 	},
 
 	drawEnd: function(item)
 	{
 		Engine.stop();
-		Engine.message('Calculation took ' + item.time + ' second(s)');
+		Engine.message('Found ' + item.answers + ' answer(s) in ' + item.time + ' second(s)');
 	}
 };

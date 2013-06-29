@@ -2,7 +2,7 @@
 namespace Worker;
 
 abstract class Common {
-	protected $params, $client;
+	protected $params, $client, $answers = 0;
 
 	public static function assign($msg, WebsocketClient $client, $requester)
 	{
@@ -23,6 +23,7 @@ abstract class Common {
 
 	protected function output($data)
 	{
+		$this->answers++;
 		$this->client->sendData('RESULT|' . $this->requester . '|' . json_encode($data));
 	}
 
@@ -31,8 +32,9 @@ abstract class Common {
 		$time = microtime(true);
 		$this->run();
 		$this->output(array(
-			'time' => round(microtime(true) - $time, 2),
-			'type' => 'end',
+			'time'    => round(microtime(true) - $time, 2),
+			'type'    => 'end',
+			'answers' => $this->answers,
 		));
 	}
 

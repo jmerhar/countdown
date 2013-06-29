@@ -46,7 +46,7 @@ Engine.prototype = {
 };
 
 Engine.message = function(msg) {
-	$('#message').text(msg).fadeIn('slow').delay(2000).fadeOut('slow');
+	$('#message').text(msg).stop(true, true).fadeIn('slow').delay(2000).fadeOut('slow');
 }
 
 Engine.start = function()
