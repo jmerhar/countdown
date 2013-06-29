@@ -59,7 +59,7 @@ Results.prototype = {
 		} else {
 			content.append(p);
 		}
-		if (item.delta == 0) content.find('.approx').remove();
+		if (item.delta == 0) content.find('.approx').slideUp('slow');
 		$('html,body').scrollTop($('#results').offset().top);
 	},
 
