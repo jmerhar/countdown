@@ -1,10 +1,11 @@
 <?php
 use Ratchet\Server\IoServer;
 use Ratchet\WebSocket\WsServer;
-use Countdown\App;
+use App\Server;
 
-require dirname(__DIR__) . '/lib/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-$server = IoServer::factory(new WsServer(new App()), 8080);
+$worker = __DIR__ . '/worker.php';
+$server = IoServer::factory(new WsServer(new Server($worker)), 8080);
 
 $server->run();

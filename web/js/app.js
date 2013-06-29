@@ -1,7 +1,6 @@
 jQuery(document).ready(function ($) {
-
-	var eng = new Engine(Results.draw);
-
+	var socket = new WebSocket('ws://' + location.host +  ':8080');
+	var results = new Results();
 	$('.numbers').keyboard({
 		keys: [
 			['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
@@ -9,7 +8,7 @@ jQuery(document).ready(function ($) {
 		],
 		min: 6,
 		max: 6,
-		callback: eng.callMethod('numbers')
+		callback: (new Engine(results, socket)).callMethod('numbers')
 	});
 	$('.letters').keyboard({
 		keys: [
@@ -19,7 +18,14 @@ jQuery(document).ready(function ($) {
 		],
 		min: 5,
 		max: 9,
-		callback: eng.callMethod('letters')
+		callback: (new Engine(results, socket)).callMethod('letters')
 	});
+
+	$('#kill').click(function(e) {
+		e.preventDefault();
+		socket.send('KILL');
+		Engine.stop();
+	});
+	Engine.spinner = new Spinner();
 
 });
