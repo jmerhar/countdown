@@ -1,14 +1,14 @@
-.panel p {
+section p {
 	margin-bottom: 0;
 }
 
-.panel p .button {
+section p .button {
 	margin-right: 0.4em;
 	vertical-align: top;
 }
 
-.panel p .success,
-.panel p .alert {
+section p .success,
+section p .alert {
 	margin-bottom: 0;
 }
 
