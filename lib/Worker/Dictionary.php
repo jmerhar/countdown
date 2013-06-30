@@ -32,7 +32,7 @@ class Dictionary extends PDO {
 			'word'    => $item['display'] ?: $item['word'],
 			'size'    => (int)$item['size'],
 			'variant' => str_repeat('*', $item['variant']),
-			'sort'    => (int)((100 - $item['size']) . strlen($item['word'])),
+			'sort'    => (int)(strlen($item['word']) . (100 - $item['size'])),
 		);
 	}
 

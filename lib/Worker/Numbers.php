@@ -32,7 +32,7 @@ class Numbers extends Common {
 			$d = abs($res - $this->target);
 			if (($d == 0) || ($d < $this->diff)) {
 				$postfix = strtr(implode(' ', $expr), 'asmd', '+-*/');
-				$infix = $this->infix($expr) . ' = ' . $res;
+				$infix = $res . ' = ' . $this->infix($expr);
 				if (!in_array($postfix, $this->results) && !in_array($infix, $this->results)) {
 					$this->output(array(
 						'postfix' => $postfix,
@@ -40,6 +40,11 @@ class Numbers extends Common {
 						'delta'   => $d,
 						'index'   => $this->index++,
 						'type'    => 'numbers',
+						'sort'    => ($d > 0) ? 0 : (
+								10000 * strlen(preg_replace('/\d/', '', $postfix)) +
+								100   * strlen(preg_replace('/\d/', '', $infix)) +
+								strlen($infix)
+							),
 					));
 					$this->diff = $d;
 					$this->results[] = $infix;

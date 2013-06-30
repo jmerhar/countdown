@@ -75,7 +75,7 @@ section p .alert {
 
 #message {
 	position: fixed;
-	right: 20px;
+	right: 80px;
 	bottom: 20px;
 	background: #333;
 	color: #ddd;
