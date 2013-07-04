@@ -2,7 +2,7 @@
 namespace Worker;
 
 abstract class Common {
-	protected $params, $client, $answers = 0;
+	protected $params, $client, $answers = 0, $step = 0, $steps = 0, $factor = 0;
 
 	public static function assign($msg, WebsocketClient $client, $requester)
 	{
@@ -36,6 +36,23 @@ abstract class Common {
 			'type'    => 'end',
 			'answers' => $this->answers,
 		));
+	}
+
+	protected function progress($steps = null)
+	{
+		if (is_null($steps)) {
+			if (!$this->steps) return;
+			$this->step++;
+			if (($this->step % $this->factor) == 0) {
+				$this->output(array(
+					'type'    => 'progress',
+					'percent' => round($this->step / $this->steps * 100),
+				));
+			}
+		} else {
+			$this->steps = $steps;
+			$this->factor = ceil($this->steps / 50);
+		}
 	}
 
 	abstract protected function run();

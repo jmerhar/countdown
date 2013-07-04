@@ -93,6 +93,20 @@ section p .alert {
 
 #spinner {
 	position: fixed;
-	bottom: 50px;
+	bottom: 70px;
 	right: 50px;
+}
+
+#progress {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #fff;
+	display: none;
+	margin: 0;
+}
+
+body {
+	padding-bottom: 30px;
 }

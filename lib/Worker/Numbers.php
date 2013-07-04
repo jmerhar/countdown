@@ -14,6 +14,7 @@ class Numbers extends Common {
 		$this->ops = array('a', 'm', 's', 'd');
 		$this->diff = 100;
 		$this->index = 1;
+		$this->results = array();
 		$this->go(array(), $numbers, array());
 	}
 

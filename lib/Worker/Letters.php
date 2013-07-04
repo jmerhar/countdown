@@ -15,6 +15,7 @@ class Letters extends Common {
 		foreach ($letters as &$letter) $letter = strtolower($letter);
 		$powerset = array_unique($this->powerset($letters));
 		usort($powerset, function($a, $b) { return strlen($a) > strlen($b); });
+		$this->progress($this->getSteps($powerset));
 		foreach ($powerset as $set) {
 			if (strlen($set) < 5) continue;
 			$this->permute_iterative($set);
@@ -26,10 +27,12 @@ class Letters extends Common {
 		$len = strlen($string);
 		$ctrl = array_fill(0, $len, 0);
 		$this->lookup($string);
+		$this->progress();
 		$i = 1;
 		while ($i < $len) {
 			if ($ctrl[$i] < $i) {
 				$j = $i % 2 * $ctrl[$i];
+				$this->progress();
 				if ($string[$j] != $string[$i]) {
 					$tmp = $string[$j];
 					$string[$j] = $string[$i];
@@ -67,6 +70,30 @@ class Letters extends Common {
 			$info['type'] = 'letters';
 			$this->output($info);
 		}
+	}
+
+	function factorial($in) {
+		$out = 1;
+		for ($i = 2; $i <= $in; $i++) $out *= $i;
+		return $out;
+	}
+
+	function getSteps($powerset)
+	{
+
+		$cnt = count($powerset);
+		$lengths = array();
+		for ($i = 0; $i < $cnt; $i++) {
+			$len = strlen($powerset[$i]);
+			if ($len < 5) {
+				unset($powerset[$i]);
+				continue;
+			}
+			$lengths[$len]++;
+		}
+		$steps = 0;
+		foreach ($lengths as $len => $cnt) $steps += $this->factorial($len) * $cnt;
+		return $steps;
 	}
 
 }

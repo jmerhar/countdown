@@ -9,15 +9,17 @@ Results.prototype = {
 		if (method == 'numbers') {
 			$('#results').show().find('.content').html('');
 		}
+		$('#progress').data('time', new Date()).show().find(' .meter').css('width', '0');
 	},
 
 	draw: function(msg)
 	{
 		var item = $.parseJSON(msg);
 		switch (item.type) {
-			case 'end'     : this.drawEnd(item);     break;
-			case 'letters' : this.drawLetters(item); break;
-			case 'numbers' : this.drawNumbers(item); break;
+			case 'end'      : this.drawEnd(item);      break;
+			case 'letters'  : this.drawLetters(item);  break;
+			case 'numbers'  : this.drawNumbers(item);  break;
+			case 'progress' : this.drawProgress(item); break;
 		}
 	},
 
@@ -64,9 +66,20 @@ Results.prototype = {
 		$('html,body').scrollTop($('#results').offset().top);
 	},
 
+	drawProgress: function(item)
+	{
+		var time = new Date();
+		var p = $('#progress');
+		$('#progress .meter')
+			.stop(true, true)
+			.animate({ 'width': (item.percent + 2) + '%' }, time - p.data('time'), 'linear');
+		p.data('time', time);
+	},
+
 	drawEnd: function(item)
 	{
 		Engine.stop();
+		$('#progress').hide();
 		Engine.message('Found ' + item.answers + ' answer(s) in ' + item.time + ' second(s)');
 	}
 };
