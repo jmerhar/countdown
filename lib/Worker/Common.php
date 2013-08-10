@@ -23,7 +23,7 @@ abstract class Common {
 
 	protected function output($data)
 	{
-		$this->answers++;
+		if (in_array($data['type'], array('letters', 'numbers'))) $this->answers++;
 		$this->client->sendData('RESULT|' . $this->requester . '|' . json_encode($data));
 	}
 
