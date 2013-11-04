@@ -6,6 +6,6 @@ use App\Server;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $worker = __DIR__ . '/worker.php';
-$server = IoServer::factory(new WsServer(new Server($worker)), 8080);
+$server = IoServer::factory(new WsServer(new Server($worker)), 8142);
 
 $server->run();
