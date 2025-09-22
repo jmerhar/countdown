@@ -25,7 +25,7 @@ This architecture ensures the UI remains responsive and provides immediate feedb
 
 ## Tech Stack
 
-* **Backend**: PHP, [Ratchet](http.socketo.me/) (WebSocket library), SQLite
+* **Backend**: PHP, [Ratchet](http://socketo.me/) (WebSocket library), SQLite
 * **Frontend**: HTML, CSS, JavaScript, jQuery, Foundation Framework
 
 ## Installation and Setup
