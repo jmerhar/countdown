@@ -1,5 +1,8 @@
 jQuery(document).ready(function ($) {
-	var socket = new WebSocket('wss://' + location.host);
+	var socket_url = (location.protocol == 'https:')
+		? 'wss://' + location.host
+		: 'ws://' + location.host + ':8142'
+	var socket = new WebSocket(socket_url);
 	var results = new Results();
 	$('.numbers').keyboard({
 		keys: [
